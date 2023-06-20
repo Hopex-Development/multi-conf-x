@@ -136,27 +136,28 @@ namespace Hopex.MultiConfX.Ini
         /// <returns><see langword="true"/>, if the data was written to the file without errors.</returns>
         public bool Save()
         {
-            if (File.Exists(path: GetPath()))
+            if (!File.Exists(path: GetPath()))
+                File.Create(path: GetPath()).Dispose();
+
+            using (StreamWriter streamWriter = new StreamWriter(
+                path: GetPath(), 
+                append: false
+            ))
             {
-                using (StreamWriter streamWriter = new StreamWriter(path: GetPath()))
+                Data.GetSections().ForEach(action: section =>
                 {
-                    Data.GetSections().ForEach(action: section =>
+                    streamWriter.WriteLine(value: $"[{section.Trim()}]");
+                    Data.GetKeys(section).ForEach(action: key =>
                     {
-                        streamWriter.WriteLine(value: $"[{section.Trim()}]");
-                        Data.GetKeys(section).ForEach(action: key =>
-                        {
-                            var @keyFormatted = LineFormatter.KeyForIni(key: key);
-                            var @valueFormatted = LineFormatter.Value(value: Data.Sections[section][key]);
+                        var @keyFormatted = LineFormatter.KeyForIni(key: key);
+                        var @valueFormatted = LineFormatter.Value(value: Data.Sections[section][key]);
 
-                            streamWriter.WriteLine(value: $"{keyFormatted}={valueFormatted}");
-                        });
+                        streamWriter.WriteLine(value: $"{keyFormatted}={valueFormatted}");
                     });
-                }
-
-                return true;
+                });
             }
 
-            return false;
+            return true;
         }
 
         /// <summary>

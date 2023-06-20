@@ -119,25 +119,26 @@ namespace Hopex.MultiConfX.Env
         /// <returns><see langword="true"/>, if the data was written to the file without errors.</returns>
         public bool Save()
         {
-            if (File.Exists(GetPath()))
+            if (!File.Exists(path: GetPath()))
+                File.Create(path: GetPath()).Dispose();
+
+            using (StreamWriter streamWriter = new StreamWriter(
+                path: GetPath(),
+                append: false
+            ))
             {
-                using (StreamWriter streamWriter = new StreamWriter(GetPath()))
+                Data.GetKeys().ForEach(action: key =>
                 {
-                    Data.GetKeys().ForEach(action: key =>
-                    {
-                        var @keyFormatted = LineFormatter.KeyForEnv(key: key);
-                        var @valueFormatted = LineFormatter.Value(value: Data.Keys[keyFormatted]);
+                    var @keyFormatted = LineFormatter.KeyForEnv(key: key);
+                    var @valueFormatted = LineFormatter.Value(value: Data.Keys[keyFormatted]);
 
-                        streamWriter.WriteLine(
-                            value: $"{keyFormatted}={valueFormatted}"
-                        );
-                    });
-                }
-
-                return true;
+                    streamWriter.WriteLine(
+                        value: $"{keyFormatted}={valueFormatted}"
+                    );
+                });
             }
 
-            return false;
+            return true;
         }
 
         /// <summary>

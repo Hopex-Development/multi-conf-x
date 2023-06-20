@@ -6,36 +6,36 @@ Implements reading and modification of configuration files such as INI, ENV.
 
 #### .NET CLI
 ```CLI
-> dotnet add package Hopex.MultiConfX --version 23.0.1
+> dotnet add package Hopex.MultiConfX --version 23.0.2
 ```
 
 #### Package Manager
 ```CLI
-PM> NuGet\Install-Package Hopex.MultiConfX -Version 23.0.1
+PM> NuGet\Install-Package Hopex.MultiConfX -Version 23.0.2
 ```
 
 #### PackageReference
 ```XML
-<PackageReference Include="Hopex.MultiConfX" Version="23.0.1" />
+<PackageReference Include="Hopex.MultiConfX" Version="23.0.2" />
 ```
 
 #### Paket CLI
 ```CLI
-> paket add Hopex.MultiConfX --version 23.0.1
+> paket add Hopex.MultiConfX --version 23.0.2
 ```
 
 #### Script & Interactive
 ```CLI
-> #r "nuget: Hopex.MultiConfX, 23.0.1"
+> #r "nuget: Hopex.MultiConfX, 23.0.2"
 ```
 
 #### Cake
 ```
 // Install Hopex.MultiConfX as a Cake Addin
-#addin nuget:?package=Hopex.MultiConfX&version=23.0.1
+#addin nuget:?package=Hopex.MultiConfX&version=23.0.2
 
 // Install Hopex.MultiConfX as a Cake Tool
-#tool nuget:?package=Hopex.MultiConfX&version=23.0.1
+#tool nuget:?package=Hopex.MultiConfX&version=23.0.2
 ```
 
 # Opportunities
